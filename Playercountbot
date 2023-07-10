@@ -1,0 +1,45 @@
+--zestyUK
+
+// Import required libraries
+const Discord = require('discord.js');
+const axios = require('axios');
+
+// Create a new Discord bot client
+const client = new Discord.Client();
+
+// Set your Discord bot token
+const botToken = 'YOUR_DISCORD_BOT_TOKEN';
+
+// Set your FiveM server IP address and port
+const fivemServerIP = 'YOUR_FIVEM_SERVER_IP';
+const fivemServerPort = 'YOUR_FIVEM_SERVER_PORT';
+
+// Event handler when the Discord bot is ready
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}`);
+  console.log('Bot is ready!');
+});
+
+// Event handler when a Discord bot message is received
+client.on('message', async (message) => {
+  // Check if the message content is "!players"
+  if (message.content === '!players') {
+    try {
+      // Fetch the list of online players from the FiveM server
+      const response = await axios.get(`http://${fivemServerIP}:${fivemServerPort}/players.json`);
+      const players = response.data;
+
+      // Create an array of player names
+      const playerNames = players.map((player) => player.name);
+
+      // Send the list of online players as a Discord bot message
+      message.channel.send(`Online players: ${playerNames.join(', ')}`);
+    } catch (error) {
+      console.error('Failed to fetch online players:', error);
+      message.channel.send('Failed to fetch online players.');
+    }
+  }
+});
+
+// Log in the Discord bot with the provided token
+client.login(botToken);
