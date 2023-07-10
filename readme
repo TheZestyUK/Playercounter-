@@ -1,0 +1,5 @@
+Make sure to replace 'YOUR_DISCORD_BOT_TOKEN' with your actual Discord bot token, 'YOUR_FIVEM_SERVER_IP' with your FiveM server's IP address, and 'YOUR_FIVEM_SERVER_PORT' with the server's port number.
+
+This script sets up a Discord bot using the discord.js library. It listens for messages and responds to the command !players. When this command is received, it sends a request to the FiveM server's /players.json endpoint to retrieve the list of online players. It then extracts the player names from the response and sends them back as a Discord bot message.
+
+Remember to install the required dependencies (discord.js and axios) by running npm install discord.js axios in your project directory before running this script.
